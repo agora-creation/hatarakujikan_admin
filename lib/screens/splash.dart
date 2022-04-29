@@ -25,7 +25,7 @@ class SplashScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('はたらくじかん', style: kTitleTextStyle),
-                  Text('for WEB', style: kSubTitleTextStyle),
+                  Text('for ADMIN', style: kSubTitleTextStyle),
                 ],
               ),
               SizedBox(height: 24.0),
