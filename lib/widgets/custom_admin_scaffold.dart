@@ -23,7 +23,7 @@ class CustomAdminScaffold extends StatelessWidget {
     return AdminScaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.grey.shade600,
         iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'はたらくじかん for ADMIN',
@@ -43,7 +43,7 @@ class CustomAdminScaffold extends StatelessWidget {
         ],
       ),
       sideBar: SideBar(
-        backgroundColor: Color(0xFFFFE0B2),
+        backgroundColor: Color(0xFFE0E0E0),
         iconColor: Colors.black54,
         textStyle: TextStyle(color: Colors.black54, fontSize: 14.0),
         activeBackgroundColor: Colors.white,

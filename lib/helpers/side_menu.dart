@@ -13,7 +13,7 @@ List<MenuItem> sideMenu() {
     MenuItem(
       title: '管理者の情報',
       route: AdminScreen.id,
-      icon: Icons.settings,
+      icon: Icons.account_box,
     ),
   ];
   return ret;

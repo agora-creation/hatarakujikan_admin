@@ -30,10 +30,15 @@ class AdminProvider with ChangeNotifier {
     try {
       _status = Status.Authenticating;
       notifyListeners();
-      await _auth!.signInWithEmailAndPassword(
+      await _auth!
+          .signInWithEmailAndPassword(
         email: email.text.trim(),
         password: password.text.trim(),
-      );
+      )
+          .then((value) async {
+        String _id = value.user?.uid ?? '';
+        await setPrefs('adminId', _id);
+      });
       return true;
     } catch (e) {
       _status = Status.Unauthenticated;
@@ -79,5 +84,66 @@ class AdminProvider with ChangeNotifier {
       }
     }
     notifyListeners();
+  }
+
+  Future<bool> updateName({
+    String? id,
+    String? name,
+  }) async {
+    if (id == null) return false;
+    if (name == null) return false;
+    try {
+      _adminService.update({
+        'id': id,
+        'name': name,
+      });
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> updateEmail({
+    String? id,
+    String? email,
+  }) async {
+    if (id == null) return false;
+    if (email == null) return false;
+    try {
+      await _auth!.currentUser?.updateEmail(email);
+      _adminService.update({
+        'id': id,
+        'email': email,
+      });
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> updatePassword({
+    String? id,
+    String? password,
+  }) async {
+    if (id == null) return false;
+    if (password == null) return false;
+    try {
+      AuthCredential _credential = EmailAuthProvider.credential(
+        email: _auth!.currentUser?.email ?? '',
+        password: password,
+      );
+      await _auth!.signInWithCredential(_credential);
+      await _auth!.currentUser?.updatePassword(password);
+      _adminService.update({
+        'id': id,
+        'password': password,
+      });
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 }
